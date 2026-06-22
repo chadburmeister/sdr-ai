@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDR.ai — Pricing</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2048%2048'%3E%3Crect%20width='48'%20height='48'%20rx='10'%20fill='%232175BC'/%3E%3Cpath%20d='M15%2015%20L33%2033M33%2015%20L15%2033'%20stroke='white'%20stroke-width='7'%20stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#ffffff;--bg-soft:#f5f8fb;--bg-tint:#e8f1f9;
+    --ink:#16242f;--ink-soft:#4a5a67;--ink-faint:#7c8b98;--line:#e2e9f0;
+    --brand:#2175BC;--brand-dark:#1a5d97;--brand-soft:#e3eff8;
+    --accent:#12b886;--accent-soft:#e3f7ef;
+    --shadow:0 1px 2px rgba(16,36,47,.04), 0 12px 32px rgba(16,36,47,.07);
+    --shadow-sm:0 1px 2px rgba(16,36,47,.05), 0 6px 16px rgba(16,36,47,.05);
+    --radius:16px;--max:1140px;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);background:var(--brand-soft);padding:6px 12px;border-radius:999px}
+  h1,h2,h3{letter-spacing:-.02em;line-height:1.1}
+  h1{font-size:clamp(33px,4.6vw,52px);font-weight:800}
+  h2{font-size:clamp(24px,3.2vw,34px);font-weight:800}
+  h3{font-size:19px;font-weight:700}
+  p{color:var(--ink-soft)}
+  section{padding:72px 0}
+  .center{text-align:center}
+  .section-head{max-width:700px;margin:0 auto 44px}
+  .section-head p{font-size:17px;margin-top:14px}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;padding:13px 22px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:transform .12s,box-shadow .12s,background .12s}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--brand);color:#fff;box-shadow:0 6px 18px rgba(33,117,188,.28)}
+  .btn-primary:hover{background:var(--brand-dark)}
+  .btn-ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+  .btn-ghost:hover{border-color:#c3d2e0;background:var(--bg-soft)}
+  .btn-sm{padding:10px 16px;font-size:14px}
+  .btn-block{width:100%;justify-content:center}
+  .arrow{transition:transform .15s}.btn:hover .arrow{transform:translateX(3px)}
+
+  header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{display:flex;align-items:center}
+  .logo{display:flex;align-items:center;gap:10px}
+  .logomark{display:block;flex:0 0 auto}
+  .logotext{display:flex;flex-direction:column;line-height:1.05}
+  .logotype{font-weight:800;font-size:20px;letter-spacing:-.03em;color:var(--ink)}
+  .logotype i{font-style:normal;color:var(--brand)}
+  .logotag{font-size:9.5px;font-weight:600;letter-spacing:.01em;color:var(--ink-faint);margin-top:3px;white-space:nowrap}
+  .brandline{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);margin-top:14px}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-size:14.5px;font-weight:500;color:var(--ink-soft)}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a.active{color:var(--ink);font-weight:600}
+  .nav-cta{display:flex;align-items:center;gap:12px}
+  @media(max-width:880px){.nav-links{display:none}}
+
+  .hero{padding:64px 0 8px;background:radial-gradient(1100px 520px at 50% -160px,var(--bg-tint),transparent);text-align:center}
+  .hero h1{max-width:760px;margin:20px auto 0}
+  .hero .sub{font-size:19px;max-width:620px;margin:18px auto 0;color:var(--ink-soft)}
+
+  /* Plans */
+  .plans{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:start}
+  @media(max-width:880px){.plans{grid-template-columns:1fr}}
+  .plan{background:#fff;border:1px solid var(--line);border-radius:20px;padding:32px;box-shadow:var(--shadow-sm);position:relative}
+  .plan.feat{border:2px solid var(--brand);box-shadow:var(--shadow)}
+  .plan .flag{position:absolute;top:-13px;left:32px;background:var(--brand);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
+  .plan .pname{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--brand)}
+  .plan h2{font-size:23px;margin:6px 0 4px}
+  .plan .blurb{font-size:14.5px;color:var(--ink-soft);min-height:42px}
+  .price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:18px 0 4px}
+  .price .setup{font-size:15px;color:var(--ink-faint);font-weight:600}
+  .price .mo{font-size:38px;font-weight:800;letter-spacing:-.03em}
+  .price .mo span{font-size:16px;font-weight:600;color:var(--ink-faint)}
+  .total{font-size:13.5px;color:var(--ink-soft);background:var(--bg-soft);border:1px solid var(--line);border-radius:10px;padding:8px 12px;display:inline-block;margin-top:10px}
+  .total b{color:var(--ink)}
+  .plan .cta{margin:22px 0 8px}
+  .incl{list-style:none;margin-top:10px;border-top:1px solid var(--line);padding-top:18px}
+  .incl li{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .incl li:last-child{border-bottom:none}
+  .incl .t{color:var(--ink)}
+  .incl .t small{display:block;color:var(--ink-faint);font-size:12.5px;margin-top:2px;font-weight:400}
+  .incl .pr{flex:0 0 auto;font-weight:700;color:var(--brand);white-space:nowrap}
+  .incl .pr.inc{color:var(--accent)}
+
+  /* Outcomes funnel */
+  .soft{background:var(--bg-soft)}
+  .funnel{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  .fstage{display:flex;align-items:center;gap:18px}
+  .fbar{height:58px;border-radius:12px;background:linear-gradient(135deg,var(--brand),#4d96d6);color:#fff;display:flex;align-items:center;padding:0 22px;font-weight:800;font-size:22px;letter-spacing:-.02em;box-shadow:var(--shadow-sm);min-width:120px}
+  .fstage .lbl{font-size:14.5px;color:var(--ink-soft)}
+  .fstage .lbl b{color:var(--ink)}
+  .fstage.s1 .fbar{width:100%}
+  .fstage.s2 .fbar{width:78%}
+  .fstage.s3 .fbar{width:62%}
+  .fstage.s4 .fbar{width:42%}
+  .fstage.s5 .fbar{width:26%;background:linear-gradient(135deg,#12b886,#0f9e75)}
+  @media(max-width:620px){.fbar{font-size:18px;height:50px;min-width:96px}.fstage .lbl{font-size:13px}}
+
+  .note{max-width:720px;margin:34px auto 0;font-size:13.5px;color:var(--ink-faint);background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 22px;text-align:center}
+
+  .cta-band{background:linear-gradient(135deg,#16242f,#2175BC);color:#fff;border-radius:26px;padding:54px 40px;text-align:center;box-shadow:0 24px 60px rgba(26,93,151,.32)}
+  .cta-band h2{color:#fff}.cta-band p{color:#d4e6f5;font-size:17px;margin:14px auto 0;max-width:600px}
+  .cta-band .btn-primary{background:#fff;color:var(--brand-dark);box-shadow:0 10px 24px rgba(0,0,0,.18);margin-top:26px}
+  .cta-band .btn-primary:hover{background:#eaf3fb}
+
+  footer{padding:50px 0 38px;border-top:1px solid var(--line)}
+  .foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--ink-faint);align-items:center}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="sdrgrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2175BC"/><stop offset="1" stop-color="#19C2E6"/></linearGradient></defs></svg>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="sdr-ai-home.html"><svg class="logomark" width="32" height="32" viewBox="0 0 48 48" aria-hidden="true"><path d="M13 13 L35 35" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/><path d="M35 13 L13 35" stroke="url(#sdrgrad)" stroke-width="7" stroke-linecap="round"/><path d="M24 18C24.7 22.7 25.3 23.3 30 24C25.3 24.7 24.7 25.3 24 30C23.3 25.3 22.7 24.7 18 24C22.7 23.3 23.3 22.7 24 18Z" fill="var(--accent)"/></svg><span class="logotext"><span class="logotype">SDR<i>.ai</i></span><span class="logotag">Pipeline, on autopilot.</span></span></a>
+    <nav class="nav-links">
+      <a href="sdr-ai-home.html#why">Why LinkedIn-first</a>
+      <a href="sdr-ai-home.html#model">The model</a>
+      <a href="sdr-ai-home.html#results">Results</a>
+      <a href="#" class="active">Pricing</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="sdr-ai-demo.html" class="btn btn-primary btn-sm">Book a demo</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Pricing</span>
+    <h1>One price. A whole SDR motion.</h1>
+    <p class="brandline">Pipeline, on autopilot.</p>
+    <p class="sub">Every plan includes onboarding, data, an AI-powered outreach engine, and a real human SDR — billed monthly across a 90-day pilot.</p>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section style="padding-top:28px">
+  <div class="wrap">
+    <div class="plans">
+
+      <!-- OUTBOUND -->
+      <div class="plan feat">
+        <span class="flag">LinkedIn-first · Flagship</span>
+        <div class="pname">AI-Powered Outbound</div>
+        <h2>Net-new pipeline from your ICP</h2>
+        <p class="blurb">LinkedIn-first outreach across up to 10 of your team's profiles, then dials on every connection.</p>
+        <div class="price">
+          <span class="setup">$2,500 setup&nbsp;+</span>
+          <span class="mo">$7,000<span>/mo</span></span>
+        </div>
+        <div class="total"><b>$23,500</b> over the 90-day pilot</div>
+        <div class="cta"><a href="sdr-ai-demo.html" class="btn btn-primary btn-block">Start the pilot <span class="arrow">→</span></a></div>
+        <ul class="incl">
+          <li><span class="t">Onboarding &amp; pilot program design<small>One-time, to design your pilot</small></span><span class="pr">$2,500</span></li>
+          <li><span class="t">Data — 500 leads / mo per LinkedIn account<small>15,000 leads sourced over 90 days</small></span><span class="pr inc">Included</span></li>
+          <li><span class="t">Human SDR manages up to 10 LinkedIn accounts<small>Your executives, AEs &amp; solution specialists</small></span><span class="pr">$4,000/mo</span></li>
+          <li><span class="t">Human SDR delivers 2,500 dials / mo<small>AI-Dialer powered</small></span><span class="pr">$3,000/mo</span></li>
+        </ul>
+      </div>
+
+      <!-- INBOUND -->
+      <div class="plan">
+        <div class="pname">AI-Powered Inbound</div>
+        <h2>Convert the MQLs you already have</h2>
+        <p class="blurb">Speed-to-lead email &amp; LinkedIn follow-up on your unconverted MQLs, backed by human dials.</p>
+        <div class="price">
+          <span class="setup">$2,500 setup&nbsp;+</span>
+          <span class="mo">$4,500<span>/mo</span></span>
+        </div>
+        <div class="total"><b>$16,000</b> over the 90-day pilot</div>
+        <div class="cta"><a href="sdr-ai-demo.html" class="btn btn-ghost btn-block">Start the pilot <span class="arrow">→</span></a></div>
+        <ul class="incl">
+          <li><span class="t">Onboarding &amp; pilot program design<small>One-time, to design your pilot</small></span><span class="pr">$2,500</span></li>
+          <li><span class="t">Data — 500–1,000 unconverted MQLs / mo<small>Provided by you</small></span><span class="pr inc">You provide</span></li>
+          <li><span class="t">AI SDR manages email &amp; LinkedIn follow-up<small>On your existing leads</small></span><span class="pr">$1,500/mo</span></li>
+          <li><span class="t">Human SDR delivers 2,500 dials / mo<small>AI-Dialer powered</small></span><span class="pr">$3,000/mo</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- OUTBOUND OUTCOMES FUNNEL -->
+<section class="soft" id="outcomes">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow">Expected outcomes · Outbound</span>
+      <h2 style="margin-top:14px">What 90 days of LinkedIn-first looks like</h2>
+      <p>SDR.ai sends connection requests across your ICP; an experienced SDR then dials everyone who connects — up to 3 dials per connection. A typical client sees:</p>
+    </div>
+    <div class="funnel">
+      <div class="fstage s1"><div class="fbar">15,000</div><div class="lbl"><b>LinkedIn connection requests</b> across up to 10 accounts</div></div>
+      <div class="fstage s2"><div class="fbar">2,500</div><div class="lbl"><b>connections</b> made</div></div>
+      <div class="fstage s3"><div class="fbar">7,500</div><div class="lbl"><b>dials</b> — up to 3 per connection</div></div>
+      <div class="fstage s4"><div class="fbar">750</div><div class="lbl"><b>live sales conversations</b></div></div>
+      <div class="fstage s5"><div class="fbar">20+</div><div class="lbl"><b>meetings / month</b></div></div>
+    </div>
+    <div class="note">
+      Figures reflect a typical, well-fit client over the 90-day pilot — not a guarantee. Connection and conversion rates vary.
+    </div>
+  </div>
+</section>
+
+<!-- INBOUND OUTCOMES -->
+<section>
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow">Expected outcomes · Inbound</span>
+      <h2 style="margin-top:14px">Turn aging MQLs into conversations</h2>
+      <p>MQL conversion varies by customer — fresher, higher-quality MQLs convert at higher rates. What we guarantee is the work that drives conversion: <b>speed-to-lead</b> and a disciplined <b>number of touches per lead</b>, across email, LinkedIn, and the phone.</p>
+    </div>
+    <div class="note" style="background:var(--bg-soft)">
+      Inbound results depend on MQL freshness and quality, your offer, and price point. SDR.ai optimizes the inputs we control — response speed and touch cadence — to maximize the conversions you get.
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="demo" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Not sure which plan fits?</h2>
+      <p>Book a 30-minute walkthrough and we'll map the right motion — outbound, inbound, or both — to your ICP, offer, and goals.</p>
+      <a href="sdr-ai-demo.html" class="btn btn-primary">Book a demo →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-bottom">
+    <a class="logo" href="sdr-ai-home.html"><svg class="logomark" width="32" height="32" viewBox="0 0 48 48" aria-hidden="true"><path d="M13 13 L35 35" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/><path d="M35 13 L13 35" stroke="url(#sdrgrad)" stroke-width="7" stroke-linecap="round"/><path d="M24 18C24.7 22.7 25.3 23.3 30 24C25.3 24.7 24.7 25.3 24 30C23.3 25.3 22.7 24.7 18 24C22.7 23.3 23.3 22.7 24 18Z" fill="var(--accent)"/></svg><span class="logotext"><span class="logotype">SDR<i>.ai</i></span><span class="logotag">Pipeline, on autopilot.</span></span></a>
+    <span>© 2026 SDR.ai — Launching August 8, 2026. Results vary by company.</span>
+    <a href="sdr-ai-demo.html" style="color:var(--brand);font-weight:600">Book a demo →</a>
+  </div>
+</footer>
+
+</body>
+</html>
