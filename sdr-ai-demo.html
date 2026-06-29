@@ -117,9 +117,9 @@
   </div>
 </header>
 
-<!-- Setup banner: auto-hidden once HubSpot IDs are filled in -->
+<!-- Setup banner: auto-hidden once FORM.endpoint is configured -->
 <div class="setup" id="setupBanner"><div class="inner">
-  <b>Almost connected.</b> Add your HubSpot <b>Portal ID</b> and <b>Form GUID</b> in the <code>HUBSPOT</code> config near the bottom of this file to start creating contacts. Until then, the form runs in preview mode and won't send to HubSpot.
+  <b>Setup needed.</b> Set <code>FORM.endpoint</code> near the bottom of this file to start delivering submissions by email.
 </div></div>
 
 <section class="main">
@@ -233,36 +233,26 @@
 
 <script>
 /* ============================================================
-   HUBSPOT INTEGRATION  —  fill these two values in.
-   • portalId : HubSpot → Settings → Account Setup → Account Defaults (a number, e.g. "12345678")
-   • formGuid : create a Form in HubSpot (Marketing → Forms) and copy its GUID from the embed code
-                (looks like "a1b2c3d4-1234-5678-9012-abcdef123456")
-   The form in HubSpot must contain fields whose INTERNAL names match the
-   FIELD_MAP values below. firstname/lastname/email/company/jobtitle are
-   standard contact properties; the last three are custom properties you
-   create in HubSpot (or remap to existing ones).
+   FORM DELIVERY  —  submissions are emailed via FormSubmit (no account needed).
+   • Set FORM.endpoint below to:  https://formsubmit.co/ajax/<your-email>
+   • First submission triggers a one-time activation email — click it once.
+   • To hide the address from page source, activate, grab the random alias from
+     formsubmit.co, and use  https://formsubmit.co/ajax/<random-alias>  instead.
+   To switch providers later (Formspree, Web3Forms, a Vercel function), just
+   change FORM.endpoint and the fetch payload keys below.
    ============================================================ */
-const HUBSPOT = {
-  portalId: "246102907",
-  formGuid: "YOUR_FORM_GUID"
-};
-
-// Map our input ids -> HubSpot contact property internal names
-const FIELD_MAP = {
-  firstname: "firstname",
-  lastname:  "lastname",
-  email:     "email",
-  company:   "company",
-  role:      "jobtitle",
-  teamsize:  "sdr_team_size",      // custom property (create in HubSpot)
-  priority:  "biggest_priority",   // custom property (create in HubSpot)
-  stack:     "current_stack"       // custom property (create in HubSpot)
+const FORM = {
+  // Submissions are emailed here via FormSubmit (no account or upgrade needed).
+  // NOTE: the FIRST time the form is submitted, FormSubmit emails a one-time
+  // activation link to this address — click it once to start receiving messages.
+  endpoint: "https://formsubmit.co/ajax/chad@sdr.ai",
+  subject: "New SDR.ai demo request"
 };
 
 const form = document.getElementById('demoForm');
 const errBox = document.getElementById('formErr');
 const btn = document.getElementById('submitBtn');
-const configured = !HUBSPOT.portalId.startsWith('YOUR_') && !HUBSPOT.formGuid.startsWith('YOUR_');
+const configured = !FORM.endpoint.includes('YOUR_');
 if (!configured) document.getElementById('setupBanner').style.display = 'block';
 
 function getCookie(name){
@@ -299,44 +289,37 @@ form.addEventListener('submit', async function(e){
   const email = document.getElementById('email').value.trim();
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ showError('Please enter a valid work email.'); return; }
 
-  // Build HubSpot Forms API payload
-  const fields = [];
-  for (const [id, hsName] of Object.entries(FIELD_MAP)){
-    const el = document.getElementById(id);
-    if (el && el.value.trim()) fields.push({ name: hsName, value: el.value.trim() });
-  }
+  const val = id => (document.getElementById(id) ? document.getElementById(id).value : '').trim();
   const payload = {
-    fields,
-    context: {
-      pageUri: location.href,
-      pageName: document.title,
-      hutk: getCookie('hubspotutk') || undefined
-    }
+    name: (val('firstname') + ' ' + val('lastname')).trim(),
+    email: email,
+    company: val('company'),
+    role: val('role'),
+    "SDR team size": val('teamsize'),
+    "Biggest priority": val('priority'),
+    "Current stack": val('stack'),
+    _subject: FORM.subject,
+    _template: "table",
+    _captcha: "false"
   };
 
-  // Preview mode (not yet configured)
-  if (!configured){
-    console.log('[SDR.ai demo] Preview mode — would POST to HubSpot:', payload);
-    showConfirmation(document.getElementById('firstname').value.trim());
-    return;
-  }
-
-  btn.disabled = true; const label = btn.textContent; btn.textContent = 'Sending…';
+  btn.disabled = true; const label = btn.textContent; btn.textContent = 'Sending\u2026';
   try {
-    const res = await fetch(
-      `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT.portalId}/${HUBSPOT.formGuid}`,
-      { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) }
-    );
+    const res = await fetch(FORM.endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
     if (res.ok){
-      showConfirmation(document.getElementById('firstname').value.trim());
+      showConfirmation(val('firstname'));
     } else {
       let detail = '';
-      try { const j = await res.json(); detail = (j.errors && j.errors[0] && j.errors[0].message) || j.message || ''; } catch(_){}
-      showError('Sorry — something went wrong submitting the form. ' + (detail || 'Please try again or email us directly.'));
+      try { const j = await res.json(); detail = j.message || ''; } catch(_){}
+      showError('Sorry \u2014 something went wrong sending your request. ' + (detail || 'Please email chad@sdr.ai directly.'));
       btn.disabled = false; btn.textContent = label;
     }
   } catch(err){
-    showError('Network error — please check your connection and try again.');
+    showError('Network error \u2014 please try again, or email chad@sdr.ai directly.');
     btn.disabled = false; btn.textContent = label;
   }
 });
